@@ -15,3 +15,14 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}Updating and upgrading packages...${NC}"
 sudo apt-get update -y
 sudo apt-get upgrade -y
+
+# Step 2: Install required packages
+echo -e "${YELLOW}Installing required packages...${NC}"
+sudo apt-get install -y \
+    git \
+    python3-dev python3.10-dev python3-setuptools python3-pip python3-distutils \
+    python3.10-venv \
+    redis-server \
+    xvfb libfontconfig wkhtmltopdf \
+    libmysqlclient-dev \
+    curl
