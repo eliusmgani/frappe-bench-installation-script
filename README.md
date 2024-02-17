@@ -1,0 +1,1 @@
+# frappe-bench-installation-script
