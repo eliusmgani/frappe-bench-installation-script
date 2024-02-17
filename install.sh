@@ -108,3 +108,8 @@ if [[ $bench_type == "Y" || $bench_type == "y" ]]; then
     bench setup nginx
     sudo service nginx reload
 fi
+
+# Step 9: Install ERPNext, hrms, and healthcare apps
+bench get-app erpnext --branch $frappe_version
+bench get-app hrms --branch $frappe_version
+bench get-app healthcare --branch $frappe_version
