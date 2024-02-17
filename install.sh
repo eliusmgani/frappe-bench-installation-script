@@ -65,3 +65,17 @@ sudo npm install -g yarn
 # Step 5: Install Frappe Bench
 echo -e "${YELLOW}Installing Frappe Bench...${NC}"
 sudo pip3 install frappe-bench
+
+# Prompt user for Frappe version
+read -p "Enter the Frappe version (e.g., version-15): " frappe_version
+
+# Prompt user for Frappe Bench directory name
+read -p "Enter The Directory name for frappe bench: " bench_dir
+
+# Initialize Frappe Bench
+echo -e "${YELLOW}Initializing Frappe Bench...${NC}"
+if [[ -n "$frappe_version" ]]; then
+    bench init --frappe-branch $frappe_version $bench_dir
+else
+    bench init $bench_dir
+fi
