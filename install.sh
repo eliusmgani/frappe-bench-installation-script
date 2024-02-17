@@ -79,3 +79,13 @@ if [[ -n "$frappe_version" ]]; then
 else
     bench init $bench_dir
 fi
+
+# Step 7: Change user directory permissions
+echo -e "${YELLOW}Changing user directory permissions...${NC}"
+read -p "Enter the frappe user: " frappe_user
+
+# Change user directory permissions
+chmod -R o+rx /home/$frappe_user/
+
+# Change to the bench directory
+cd $bench_dir
