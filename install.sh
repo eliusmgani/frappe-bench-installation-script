@@ -26,3 +26,30 @@ sudo apt-get install -y \
     xvfb libfontconfig wkhtmltopdf \
     libmysqlclient-dev \
     curl
+
+# Step 3: Install mariadb
+# Check if there is a need to install mariadb, or it is already installed
+if ! mariadb --version; then
+    echo -e "${YELLOW}Installing MariaDB...${NC}"
+    sudo apt-get install -y \
+    software-properties-common \
+    mariadb-server mariadb-client
+
+    # Configure MySQL server
+    echo -e "${YELLOW}Configuring MySQL server...${NC}"
+    sudo mysql_secure_installation
+
+    # Check if configuration needs to be appended to my.cnf
+    if ! grep -qxF '[mysqld]' /etc/mysql/my.cnf; then
+        echo -e "[mysqld]\ncharacter-set-client-handshake = FALSE\ncharacter-set-server = utf8mb4\ncollation-server = utf8mb4_unicode_ci" | sudo tee -a /etc/mysql/my.cnf
+    fi
+
+    if ! grep -qxF '[mysql]' /etc/mysql/my.cnf; then
+        echo -e "\n[mysql]\ndefault-character-set = utf8mb4" | sudo tee -a /etc/mysql/my.cnf
+    fi
+else
+    echo -e "${GREEN}MariaDB is already installed...${NC}"
+fi
+
+# Restart MySQL service
+sudo service mysql restart
