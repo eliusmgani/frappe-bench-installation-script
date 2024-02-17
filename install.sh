@@ -61,3 +61,7 @@ source ~/.bashrc
 nvm install node
 sudo apt-get install -y npm
 sudo npm install -g yarn
+
+# Step 5: Install Frappe Bench
+echo -e "${YELLOW}Installing Frappe Bench...${NC}"
+sudo pip3 install frappe-bench
