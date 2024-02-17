@@ -53,3 +53,11 @@ fi
 
 # Restart MySQL service
 sudo service mysql restart
+
+# Step 4: Install Node.js, NPM, and Yarn
+echo -e "${YELLOW}Installing Node.js, NPM, and Yarn...${NC}"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+nvm install node
+sudo apt-get install -y npm
+sudo npm install -g yarn
