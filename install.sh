@@ -113,3 +113,21 @@ fi
 bench get-app erpnext --branch $frappe_version
 bench get-app hrms --branch $frappe_version
 bench get-app healthcare --branch $frappe_version
+
+if [[ $bench_type == "Y" || $bench_type == "y" ]]; then
+    echo -e "${YELLOW}Setting up production Again...${NC}"
+    sudo bench setup production $frappe_user
+
+    # Set up multitenant
+    echo -e "${YELLOW}Setting up multitenant...${NC}"
+    bench config dns_multitenant on
+
+    # Set up nginx
+    echo -e "${YELLOW}Setting up nginx...${NC}"
+    bench bench setup nginx
+    sudo service nginx reload
+
+    # Restart bench
+    echo -e "${YELLOW}Bench restarting...${NC}"
+    sudo bench restart
+fi    
