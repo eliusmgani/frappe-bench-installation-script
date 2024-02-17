@@ -89,3 +89,22 @@ chmod -R o+rx /home/$frappe_user/
 
 # Change to the bench directory
 cd $bench_dir
+
+# propmt user to choose either development or production
+read -p "Is this a production bench? (Y/N): " bench_type
+
+# Step 8: setup production bench
+# If the user chooses production bench, then run the following commands
+if [[ $bench_type == "Y" || $bench_type == "y" ]]; then
+    echo -e "${YELLOW}Setting up production...${NC}"
+    sudo bench setup production $frappe_user
+
+    # Set up multitenant
+    echo -e "${YELLOW}Setting up multitenant...${NC}"
+    bench config dns_multitenant on
+
+    # Set up nginx
+    echo -e "${YELLOW}Setting up nginx...${NC}"
+    bench setup nginx
+    sudo service nginx reload
+fi
